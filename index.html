@@ -3,121 +3,167 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Collection & Export</title>
+    <title>SOOVA - Profile Collection</title>
     <style>
-        body { font-family: sans-serif; background-color: #f0f2f5; padding: 20px; }
-        .container { max-width: 600px; margin: auto; background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        h2 { color: #1a73e8; text-align: center; margin-bottom: 20px; }
-        .form-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 5px; font-weight: 600; color: #444; }
+        :root {
+            --soova-blue: #1a73e8;
+            --soova-green: #2e7d32;
+            --light-bg: #f8f9fa;
+        }
+        body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #eef2f7; padding: 15px; margin: 0; }
+        .header { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            background: white; 
+            padding: 15px; 
+            border-radius: 12px 12px 0 0; 
+            border-bottom: 4px solid var(--soova-blue);
+        }
+        .logo-box { width: 60px; height: 60px; background: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: var(--soova-blue); border: 2px solid var(--soova-green); font-size: 10px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .container { max-width: 800px; margin: auto; background: white; padding: 0; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); overflow: hidden; }
+        .form-content { padding: 25px; }
+        h2 { color: var(--soova-blue); text-align: center; margin: 10px 0; text-transform: uppercase; letter-spacing: 1px; }
+        .section { margin-bottom: 25px; padding: 15px; border: 1px solid #e0e0e0; border-radius: 8px; background-color: var(--light-bg); border-left: 5px solid var(--soova-green); }
+        .section-title { font-weight: bold; color: var(--soova-blue); margin-bottom: 15px; text-transform: uppercase; font-size: 13px; }
+        label { display: block; margin-bottom: 5px; font-weight: 600; color: #444; font-size: 13px; }
         input, select { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 14px; }
-        .row { display: flex; gap: 15px; }
-        .row div { flex: 1; }
-        .btn-group { margin-top: 20px; display: flex; flex-direction: column; gap: 10px; }
-        .save-btn { background-color: #1a73e8; color: white; border: none; padding: 14px; border-radius: 6px; font-size: 16px; cursor: pointer; font-weight: bold; }
-        .download-btn { background-color: #34a853; color: white; border: none; padding: 14px; border-radius: 6px; font-size: 16px; cursor: pointer; font-weight: bold; }
-        .save-btn:hover { background-color: #1557b0; }
-        .download-btn:hover { background-color: #2d8243; }
-        #status { margin-top: 15px; text-align: center; font-size: 14px; color: #1a73e8; font-weight: bold; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; }
+        .btn-container { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
+        .btn { padding: 16px; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; color: white; transition: 0.3s; text-transform: uppercase; }
+        .save-btn { background: linear-gradient(to right, var(--soova-blue), #0d47a1); }
+        .download-btn { background: linear-gradient(to right, var(--soova-green), #1b5e20); position: relative; }
+        .footer { background: #333; color: #ccc; text-align: center; padding: 20px; font-size: 12px; margin-top: 20px; }
+        #status { margin-top: 15px; text-align: center; font-weight: bold; color: var(--soova-green); }
     </style>
 </head>
-<body>
+<body onload="updateButtonCount()">
 
 <div class="container">
-    <h2>Data Entry Portal</h2>
-    <form id="dataForm">
-        <div class="form-group">
-            <label>Name</label>
-            <input type="text" id="name" placeholder="Full Name" required>
+    <div class="header">
+        <div class="logo-box">SOOVA</div>
+        <div style="text-align:center;">
+            <h2 style="margin:0; font-size: 28px;">SOOVA</h2>
+            <small style="color:var(--soova-green); font-weight:bold;">Empowering Communities</small>
         </div>
+        <div class="logo-box">SOOVA</div>
+    </div>
 
-        <div class="row">
-            <div class="form-group">
-                <label>Age</label>
-                <input type="number" id="age">
-            </div>
-            <div class="form-group">
-                <label>Gender</label>
-                <select id="gender">
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                    <option value="Other">Other</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label>Village Name</label>
-            <input type="text" id="village" placeholder="e.g. Adapal">
-        </div>
-
-        <div class="form-group">
-            <label>SHG Name</label>
-            <input type="text" id="shg">
-        </div>
-
-        <div class="row">
-            <div class="form-group">
-                <label>Aadhaar</label>
-                <input type="text" id="aadhaar" maxlength="12">
-            </div>
-            <div class="form-group">
-                <label>Land (Acres)</label>
-                <input type="number" step="0.01" id="area">
+    <form id="profileForm" class="form-content">
+        <div class="section">
+            <div class="section-title">Step 1: Collection Logistics</div>
+            <div class="grid">
+                <div class="form-group"><label>Collector Name</label><input type="text" id="field2" placeholder="Vivek Aryan Pati"></div>
+                <div class="form-group">
+                    <label>Mode of Collection</label>
+                    <select id="field3">
+                        <option value="Physical">Physical (Field Visit)</option>
+                        <option value="Telephonic">Telephonic (Mobile Call)</option>
+                    </select>
+                </div>
+                <div class="form-group"><label>Partner Network</label><input type="text" id="field4" value="SOOVA" readonly></div>
             </div>
         </div>
 
-        <div class="btn-group">
-            <button type="button" class="save-btn" onclick="saveData()">Save Entry</button>
-            <button type="button" class="download-btn" onclick="downloadCSV()">Download Excel (CSV)</button>
+        <div class="section">
+            <div class="section-title">Step 2: Beneficiary Profile</div>
+            <div class="form-group"><label>Name of the Beneficiary</label><input type="text" id="field5" required></div>
+            <div class="grid">
+                <div class="form-group"><label>Mobile (10 Digits)</label><input type="text" id="field8" maxlength="10"></div>
+                <div class="form-group"><label>Gender</label><select id="field6"><option>Male</option><option>Female</option></select></div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">Step 3: Location (Mayurbhanj)</div>
+            <div class="grid">
+                <div class="form-group"><label>State</label><input type="text" value="Odisha" readonly></div>
+                <div class="form-group">
+                    <label>Block</label>
+                    <select id="field12">
+                        <option value="Udala">Udala</option>
+                        <option value="Kaptipada">Kaptipada</option>
+                        <option value="Samakhunta">Samakhunta</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">Step 4: Land Validation</div>
+            <div class="form-group"><label>Total Land Holding (Acre)</label><input type="number" step="0.01" id="field17" value="0"></div>
+            <div class="grid">
+                <div><label>Crop 1 Area</label><input type="number" step="0.01" id="field19" class="crop-land" value="0"></div>
+                <div><label>Crop 2 Area</label><input type="number" step="0.01" id="field21" class="crop-land" value="0"></div>
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <button type="button" class="btn save-btn" onclick="saveData()">💾 Secure Save</button>
+            <button type="button" id="downloadBtn" class="btn download-btn" onclick="downloadCSV()">📥 Download All Data (0)</button>
         </div>
         <div id="status"></div>
     </form>
+
+    <div class="footer">
+        Made with ❤️ by <b>Vivek Aryan Pati</b><br>
+        Copyright © <b>SOOVA 2026</b> | All Rights Reserved
+    </div>
 </div>
 
 <script>
+    const HEADERS = ["Date and Time", "Collector Name", "Mode of Collection", "Partner Network", "Beneficiary Name", "Gender", "Year of Birth", "Mobile", "WhatsApp Linked", "State", "District", "Block", "Revenue Village", "Sub Village", "Occupation", "Profile Type", "Total Land", "Crop 1", "Land 1", "Crop 2", "Land 2", "Crop 3", "Land 3", "Crop 4", "Land 4", "Crop 5", "Land 5", "Goats", "Poultry", "Cows", "Other 1", "Nos 1", "Other 2", "Nos 2", "Other 3", "Nos 3", "Milk Soc", "Poultry Farm", "Craft", "Type Craft", "Gear", "Fish Landing"];
+
+    function updateButtonCount() {
+        const db = JSON.parse(localStorage.getItem('soovaDB')) || [];
+        document.getElementById('downloadBtn').innerText = `📥 Download All Data (${db.length})`;
+    }
+
     function saveData() {
-        const entry = {
-            Name: document.getElementById('name').value,
-            Age: document.getElementById('age').value,
-            Gender: document.getElementById('gender').value,
-            Village: document.getElementById('village').value,
-            SHG: document.getElementById('shg').value,
-            Aadhaar: document.getElementById('aadhaar').value,
-            Area: document.getElementById('area').value,
-            Time: new Date().toLocaleDateString()
-        };
+        const name = document.getElementById('field5').value;
+        const mobile = document.getElementById('field8').value;
+        const totalLand = parseFloat(document.getElementById('field17').value) || 0;
 
-        if(!entry.Name) { alert("Please enter at least a name."); return; }
+        if(!name) { alert("Enter Beneficiary Name."); return; }
+        if(mobile.length !== 10) { alert("Mobile must be 10 digits."); return; }
 
-        let allData = JSON.parse(localStorage.getItem('beneficiaryList')) || [];
-        allData.push(entry);
-        localStorage.setItem('beneficiaryList', JSON.stringify(allData));
+        let sumCrop = 0;
+        document.querySelectorAll('.crop-land').forEach(i => sumCrop += parseFloat(i.value) || 0);
+        if(sumCrop > totalLand) { alert("Crop area exceeds total land."); return; }
 
-        document.getElementById('status').innerText = "✅ Saved! Total entries: " + allData.length;
-        document.getElementById('dataForm').reset();
+        let entry = { "Date and Time": new Date().toLocaleString() };
+        for(let i=2; i<=42; i++) {
+            const el = document.getElementById('field' + i);
+            entry[HEADERS[i-1]] = el ? el.value : "";
+        }
+        entry["State"] = "Odisha"; entry["District"] = "Mayurbhanj";
+
+        let db = JSON.parse(localStorage.getItem('soovaDB')) || [];
+        db.push(entry);
+        localStorage.setItem('soovaDB', JSON.stringify(db));
+
+        document.getElementById('status').innerText = "✅ Saved!";
+        document.getElementById('profileForm').reset();
+        updateButtonCount();
+        setTimeout(() => { document.getElementById('status').innerText = ""; }, 3000);
     }
 
     function downloadCSV() {
-        const data = JSON.parse(localStorage.getItem('beneficiaryList'));
-        if (!data || data.length === 0) {
-            alert("No data found to download.");
-            return;
+        const data = JSON.parse(localStorage.getItem('soovaDB'));
+        if (!data || data.length === 0) { alert("No data to export."); return; }
+        const csvRows = [HEADERS.join(",")];
+        for (const row of data) {
+            const values = HEADERS.map(h => `"${(row[h] || "").toString().replace(/"/g, '""')}"`);
+            csvRows.push(values.join(","));
         }
-
-        const headers = Object.keys(data[0]).join(",");
-        const rows = data.map(obj => Object.values(obj).map(val => `"${val}"`).join(","));
-        const csvContent = "data:text/csv;charset=utf-8," + headers + "\n" + rows.join("\n");
-
-        const encodedUri = encodeURI(csvContent);
-        const link = document.createElement("a");
-        link.setAttribute("href", encodedUri);
-        link.setAttribute("download", "collected_data.csv");
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+        const blob = new Blob(["\uFEFF" + csvRows.join("\n")], { type: 'text/csv;charset=utf-8;' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = `SOOVA_Data_${new Date().toLocaleDateString()}.csv`;
+        a.click();
     }
 </script>
 
 </body>
 </html>
+            
