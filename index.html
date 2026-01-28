@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Collection & Export</title>
+    <style>
+        body { font-family: sans-serif; background-color: #f0f2f5; padding: 20px; }
+        .container { max-width: 600px; margin: auto; background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        h2 { color: #1a73e8; text-align: center; margin-bottom: 20px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: 600; color: #444; }
+        input, select { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 14px; }
+        .row { display: flex; gap: 15px; }
+        .row div { flex: 1; }
+        .btn-group { margin-top: 20px; display: flex; flex-direction: column; gap: 10px; }
+        .save-btn { background-color: #1a73e8; color: white; border: none; padding: 14px; border-radius: 6px; font-size: 16px; cursor: pointer; font-weight: bold; }
+        .download-btn { background-color: #34a853; color: white; border: none; padding: 14px; border-radius: 6px; font-size: 16px; cursor: pointer; font-weight: bold; }
+        .save-btn:hover { background-color: #1557b0; }
+        .download-btn:hover { background-color: #2d8243; }
+        #status { margin-top: 15px; text-align: center; font-size: 14px; color: #1a73e8; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Data Entry Portal</h2>
+    <form id="dataForm">
+        <div class="form-group">
+            <label>Name</label>
+            <input type="text" id="name" placeholder="Full Name" required>
+        </div>
+
+        <div class="row">
+            <div class="form-group">
+                <label>Age</label>
+                <input type="number" id="age">
+            </div>
+            <div class="form-group">
+                <label>Gender</label>
+                <select id="gender">
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Village Name</label>
+            <input type="text" id="village" placeholder="e.g. Adapal">
+        </div>
+
+        <div class="form-group">
+            <label>SHG Name</label>
+            <input type="text" id="shg">
+        </div>
+
+        <div class="row">
+            <div class="form-group">
+                <label>Aadhaar</label>
+                <input type="text" id="aadhaar" maxlength="12">
+            </div>
+            <div class="form-group">
+                <label>Land (Acres)</label>
+                <input type="number" step="0.01" id="area">
+            </div>
+        </div>
+
+        <div class="btn-group">
+            <button type="button" class="save-btn" onclick="saveData()">Save Entry</button>
+            <button type="button" class="download-btn" onclick="downloadCSV()">Download Excel (CSV)</button>
+        </div>
+        <div id="status"></div>
+    </form>
+</div>
+
+<script>
+    function saveData() {
+        const entry = {
+            Name: document.getElementById('name').value,
+            Age: document.getElementById('age').value,
+            Gender: document.getElementById('gender').value,
+            Village: document.getElementById('village').value,
+            SHG: document.getElementById('shg').value,
+            Aadhaar: document.getElementById('aadhaar').value,
+            Area: document.getElementById('area').value,
+            Time: new Date().toLocaleDateString()
+        };
+
+        if(!entry.Name) { alert("Please enter at least a name."); return; }
+
+        let allData = JSON.parse(localStorage.getItem('beneficiaryList')) || [];
+        allData.push(entry);
+        localStorage.setItem('beneficiaryList', JSON.stringify(allData));
+
+        document.getElementById('status').innerText = "✅ Saved! Total entries: " + allData.length;
+        document.getElementById('dataForm').reset();
+    }
+
+    function downloadCSV() {
+        const data = JSON.parse(localStorage.getItem('beneficiaryList'));
+        if (!data || data.length === 0) {
+            alert("No data found to download.");
+            return;
+        }
+
+        const headers = Object.keys(data[0]).join(",");
+        const rows = data.map(obj => Object.values(obj).map(val => `"${val}"`).join(","));
+        const csvContent = "data:text/csv;charset=utf-8," + headers + "\n" + rows.join("\n");
+
+        const encodedUri = encodeURI(csvContent);
+        const link = document.createElement("a");
+        link.setAttribute("href", encodedUri);
+        link.setAttribute("download", "collected_data.csv");
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+</script>
+
+</body>
+</html>
