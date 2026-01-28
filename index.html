@@ -3,80 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SOOVA - Profile Collection Portal</title>
+    <title>Survey App - Mayurbhanj</title>
     <style>
-        :root {
-            --soova-blue: #1a73e8;
-            --soova-green: #2e7d32;
-            --light-bg: #f8f9fa;
-        }
-        body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #eef2f7; padding: 15px; margin: 0; }
-        
-        .container { max-width: 800px; margin: auto; background: white; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); overflow: hidden; }
-        
-        /* Header & Logo */
-        .header { 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            background: white; 
-            padding: 20px; 
-            border-bottom: 4px solid var(--soova-blue);
-        }
-        .logo-box { width: 70px; height: 70px; background: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: var(--soova-blue); border: 2px solid var(--soova-green); font-size: 11px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        
-        h2 { color: var(--soova-blue); text-align: center; margin: 5px 0; text-transform: uppercase; letter-spacing: 1px; }
-        
-        .form-content { padding: 25px; }
-        .section { margin-bottom: 25px; padding: 15px; border: 1px solid #e0e0e0; border-radius: 8px; background-color: var(--light-bg); border-left: 5px solid var(--soova-green); }
-        .section-title { font-weight: bold; color: var(--soova-blue); margin-bottom: 15px; text-transform: uppercase; font-size: 13px; border-bottom: 1px solid #ddd; padding-bottom: 5px; }
-        
+        body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #f4f7f6; padding: 15px; margin: 0; }
+        .container { max-width: 800px; margin: auto; background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+        h2 { color: #2c3e50; text-align: center; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+        .section { margin-bottom: 25px; padding: 15px; border: 1px solid #e0e0e0; border-radius: 8px; background-color: #fafafa; }
+        .section-title { font-weight: bold; color: #3498db; margin-bottom: 15px; text-transform: uppercase; font-size: 14px; border-bottom: 1px solid #ddd; padding-bottom: 5px; }
+        .form-group { margin-bottom: 12px; }
         label { display: block; margin-bottom: 5px; font-weight: 600; color: #444; font-size: 13px; }
-        input, select { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 14px; }
-        input[readonly] { background-color: #f1f3f4; cursor: not-allowed; color: #666; }
-        
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; }
-        
-        /* Buttons */
+        input, select { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 14px; }
+        input[readonly] { background-color: #eee; cursor: not-allowed; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
         .btn-container { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
-        .btn { padding: 16px; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; color: white; transition: 0.3s; text-transform: uppercase; }
-        .save-btn { background: linear-gradient(to right, var(--soova-blue), #0d47a1); }
-        .download-btn { background: linear-gradient(to right, var(--soova-green), #1b5e20); }
-        .btn:active { transform: scale(0.98); }
-
-        /* Footer */
-        .footer { background: #333; color: #ccc; text-align: center; padding: 20px; font-size: 12px; line-height: 1.6; }
-        .footer b { color: white; }
-
+        .btn { padding: 15px; border: none; border-radius: 6px; font-size: 16px; font-weight: bold; cursor: pointer; color: white; transition: 0.3s; }
+        .save-btn { background-color: #3498db; }
+        .download-btn { background-color: #27ae60; }
         #status { margin-top: 15px; text-align: center; font-weight: bold; }
+        .error-text { color: #e74c3c; font-size: 12px; margin-top: 4px; display: none; }
     </style>
 </head>
-<body onload="updateButtonCount()">
+<body>
 
 <div class="container">
-    <div class="header">
-        <div class="logo-box">SOOVA</div>
-        <div style="text-align:center;">
-            <h2 style="margin:0; font-size: 26px;">SOOVA</h2>
-            <small style="color:var(--soova-green); font-weight:bold;">Profile Collection Portal</small>
-        </div>
-        <div class="logo-box">SOOVA</div>
-    </div>
-
-    <form id="profileForm" class="form-content">
+    <h2>Mayurbhanj Data Entry Portal</h2>
+    <form id="profileForm">
+        
         <div class="section">
             <div class="section-title">1. Collection Info</div>
             <div class="grid">
-                <div class="form-group"><label>Collector Name</label><input type="text" id="field2" placeholder="Vivek Aryan Pati"></div>
-                <div class="form-group">
-                    <label>Mode of Collection</label>
-                    <select id="field3">
-                        <option value="Physical">Physical</option>
-                        <option value="Telephonic">Telephonic</option>
-                    </select>
-                </div>
+                <div class="form-group"><label>Collector Name</label><input type="text" id="field2" placeholder="Your Name"></div>
+                <div class="form-group"><label>Mode of Collection</label><input type="text" id="field3"></div>
             </div>
-            <div class="form-group"><label>Partner Network / Private Group</label><input type="text" id="field4" value="SOOVA" readonly></div>
+            <div class="form-group"><label>Partner Network / Private Group</label><input type="text" id="field4"></div>
         </div>
 
         <div class="section">
@@ -87,7 +46,10 @@
                 <div class="form-group"><label>Year of Birth</label><input type="number" id="field7" placeholder="YYYY"></div>
             </div>
             <div class="grid">
-                <div class="form-group"><label>Mobile (10 Digits)</label><input type="text" id="field8" maxlength="10"></div>
+                <div class="form-group">
+                    <label>Mobile (10 Digits)</label>
+                    <input type="text" id="field8" pattern="\d{10}" maxlength="10" placeholder="e.g. 9876543210">
+                </div>
                 <div class="form-group"><label>WhatsApp Linked?</label><select id="field9"><option>Yes</option><option>No</option></select></div>
             </div>
         </div>
@@ -109,87 +71,146 @@
                 </div>
                 <div class="form-group"><label>Revenue Village</label><input type="text" id="field13"></div>
             </div>
+            <div class="form-group"><label>Sub Village / Hamlet</label><input type="text" id="field14"></div>
         </div>
 
         <div class="section">
             <div class="section-title">4. Occupation & Land</div>
+            <div class="form-group"><label>Occupation Category</label><input type="text" id="field15"></div>
+            <div class="form-group">
+                <label>Profile Type</label>
+                <select id="field16"><option>New User Profile</option><option>Update User Profile</option></select>
+            </div>
             <div class="form-group"><label>Total Land Holding (Acre)</label><input type="number" step="0.01" id="field17" value="0"></div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">5. Crop Details</div>
             <div class="grid">
-                <div><label>Crop 1 Area</label><input type="number" step="0.01" id="field19" class="crop-land" value="0"></div>
-                <div><label>Crop 2 Area</label><input type="number" step="0.01" id="field21" class="crop-land" value="0"></div>
+                <div><label>Crop 1</label><input type="text" id="field18"></div>
+                <div><label>Land (Acre)</label><input type="number" step="0.01" id="field19" class="crop-land" value="0"></div>
+            </div>
+            <div class="grid">
+                <div><label>Crop 2</label><input type="text" id="field20"></div>
+                <div><label>Land (Acre)</label><input type="number" step="0.01" id="field21" class="crop-land" value="0"></div>
+            </div>
+            <div class="grid">
+                <div><label>Crop 3</label><input type="text" id="field22"></div>
+                <div><label>Land (Acre)</label><input type="number" step="0.01" id="field23" class="crop-land" value="0"></div>
+            </div>
+            <div class="grid">
+                <div><label>Crop 4</label><input type="text" id="field24"></div>
+                <div><label>Land (Acre)</label><input type="number" step="0.01" id="field25" class="crop-land" value="0"></div>
+            </div>
+            <div class="grid">
+                <div><label>Crop 5</label><input type="text" id="field26"></div>
+                <div><label>Land (Acre)</label><input type="number" step="0.01" id="field27" class="crop-land" value="0"></div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">6. Other Info</div>
+            <div class="grid">
+                <div><label>No of Goats</label><input type="number" id="field28"></div>
+                <div><label>No of Poultry</label><input type="number" id="field29"></div>
+                <div><label>No of Cows</label><input type="number" id="field30"></div>
+            </div>
+            <div class="grid">
+                <div><label>Fish Landing Centre</label><input type="text" id="field42"></div>
             </div>
         </div>
 
         <div class="btn-container">
-            <button type="button" class="btn save-btn" onclick="saveData()">💾 Secure Save</button>
-            <button type="button" id="downloadBtn" class="btn download-btn" onclick="downloadCSV()">📥 Download All Data (0)</button>
+            <button type="button" class="btn save-btn" onclick="saveData()">💾 Save Entry</button>
+            <button type="button" class="btn download-btn" onclick="downloadCSV()">📥 Download CSV</button>
         </div>
         <div id="status"></div>
     </form>
 
     <div class="footer">
-        Made by <b>Vivek Aryan Pati</b><br>
-        Copyright © <b>SOOVA 2026</b>
+        Made with ❤️ by <b>Vivek Aryan Pati</b><br>
+        Copyright © <b>SOOVA 2026</b> | All Rights Reserved
     </div>
 </div>
 
 <script>
-    const HEADERS = ["Date and Time", "Collector Name", "Mode of Collection", "Partner Network", "Beneficiary Name", "Gender", "Year of Birth", "Mobile", "WhatsApp Linked", "State", "District", "Block", "Revenue Village", "Sub Village", "Occupation Category", "Profile Type", "Total Land", "Crop 1", "Land 1", "Crop 2", "Land 2", "Crop 3", "Land 3", "Crop 4", "Land 4", "Crop 5", "Land 5", "No of Goats", "No of Poultry", "No of Cows", "Other Animal 1", "Nos 1", "Other Animal 2", "Nos 2", "Other Animal 3", "Nos 3", "Milk Societies", "Poultry Farming", "Craft Owner", "Type of Craft", "Gear/Net", "Fish Landing Centre"];
-
-    function updateButtonCount() {
-        const db = JSON.parse(localStorage.getItem('soovaSurvey')) || [];
-        document.getElementById('downloadBtn').innerText = `📥 Download All Data (${db.length})`;
-    }
+    const HEADERS = [
+        "Date and Time", "Collector Name", "Mode of Collection", "Partner Network", 
+        "Beneficiary Name", "Gender", "Year of Birth", "Mobile", "WhatsApp Linked", 
+        "State", "District", "Block", "Revenue Village", "Sub Village", 
+        "Occupation Category", "Profile Type", "Total Land", 
+        "Crop 1", "Land 1", "Crop 2", "Land 2", "Crop 3", "Land 3", "Crop 4", "Land 4", "Crop 5", "Land 5",
+        "No of Goats", "No of Poultry", "No of Cows", "Other Animal 1", "Nos 1", "Other Animal 2", "Nos 2", 
+        "Other Animal 3", "Nos 3", "Milk Societies", "Poultry Farming", "Craft Owner", "Type of Craft", "Gear/Net", "Fish Landing Centre"
+    ];
 
     function saveData() {
         const name = document.getElementById('field5').value;
         const mobile = document.getElementById('field8').value;
         const totalLand = parseFloat(document.getElementById('field17').value) || 0;
 
+        // 1. Validate Name
         if(!name) { alert("Please enter the Beneficiary Name."); return; }
-        if(mobile.length !== 10 || isNaN(mobile)) { alert("Error: Mobile number must be 10 digits."); return; }
 
-        let sumCrop = 0;
-        document.querySelectorAll('.crop-land').forEach(input => sumCrop += parseFloat(input.value) || 0);
-        if(sumCrop > totalLand) { alert(`Error: Crop land (${sumCrop}) exceeds Total Land (${totalLand}).`); return; }
+        // 2. Validate Mobile (Must be exactly 10 digits)
+        if(mobile.length !== 10 || isNaN(mobile)) {
+            alert("Error: Mobile number must be exactly 10 digits.");
+            return;
+        }
 
-        let entry = { "Date and Time": new Date().toLocaleString() };
+        // 3. Validate Crop Land Area
+        let sumCropLand = 0;
+        document.querySelectorAll('.crop-land').forEach(input => {
+            sumCropLand += parseFloat(input.value) || 0;
+        });
+
+        if(sumCropLand > totalLand) {
+            alert(`Error: Total land for crops (${sumCropLand}) exceeds Total Land Holding (${totalLand}).`);
+            return;
+        }
+
+        // Prepare Entry
+        let entry = {};
+        entry["Date and Time"] = new Date().toLocaleString(); // Automatically add time
+        
+        // Map other fields (skip field1 as it's the auto-time now)
         for(let i=2; i<=42; i++) {
             const el = document.getElementById('field' + i);
             entry[HEADERS[i-1]] = el ? el.value : "";
         }
-        entry["State"] = "Odisha"; entry["District"] = "Mayurbhanj";
 
-        let db = JSON.parse(localStorage.getItem('soovaSurvey')) || [];
+        // Save to LocalStorage
+        let db = JSON.parse(localStorage.getItem('mayurbhanjSurvey')) || [];
         db.push(entry);
-        localStorage.setItem('soovaSurvey', JSON.stringify(db));
+        localStorage.setItem('mayurbhanjSurvey', JSON.stringify(db));
 
-        document.getElementById('status').innerHTML = "<span style='color:var(--soova-green)'>✅ Saved! Total: " + db.length + "</span>";
+        document.getElementById('status').innerHTML = "<span style='color:green'>✅ Saved Successfully! Total Records: " + db.length + "</span>";
         document.getElementById('profileForm').reset();
         
-        // Restore locked fields
-        document.getElementById('field4').value = "SOOVA";
+        // Reset defaults after reset
         document.getElementById('field10').value = "Odisha";
         document.getElementById('field11').value = "Mayurbhanj";
         
-        updateButtonCount();
         window.scrollTo(0,0);
-        setTimeout(() => { document.getElementById('status').innerText = ""; }, 3000);
+        setTimeout(() => { document.getElementById('status').innerText = ""; }, 4000);
     }
 
     function downloadCSV() {
-        const data = JSON.parse(localStorage.getItem('soovaSurvey'));
+        const data = JSON.parse(localStorage.getItem('mayurbhanjSurvey'));
         if (!data || data.length === 0) { alert("No data to export."); return; }
+
         const csvRows = [HEADERS.join(",")];
         for (const row of data) {
-            const values = HEADERS.map(h => `"${(row[h] || "").toString().replace(/"/g, '""')}"`);
+            const values = HEADERS.map(header => `"${(row[header] || "").toString().replace(/"/g, '""')}"`);
             csvRows.push(values.join(","));
         }
-        const blob = new Blob(["\uFEFF" + csvRows.join("\n")], { type: 'text/csv;charset=utf-8;' });
-        const url = URL.createObjectURL(blob);
+
+        const csvContent = "\uFEFF" + csvRows.join("\n");
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        const url = window.URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = `SOOVA_Survey_${new Date().toLocaleDateString()}.csv`;
+        a.download = 'Survey_Data_Mayurbhanj.csv';
         a.click();
     }
 </script>
