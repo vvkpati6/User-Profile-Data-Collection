@@ -40,7 +40,7 @@
 
         <div class="section">
             <div class="section-title">2. Beneficiary Profile</div>
-            <div class="form-group"><label>Name of the Beneficiary</label><input type="text" id="field5" required></div>
+            <div class="form-group"><label>Name of the Beneficiary/Head of the family</label><input type="text" id="field5" required></div>
             <div class="grid">
                 <div class="form-group"><label>Gender</label><select id="field6"><option>Male</option><option>Female</option><option>Other</option></select></div>
                 <div class="form-group"><label>Year of Birth</label><input type="number" id="field7" placeholder="YYYY"></div>
@@ -87,19 +87,19 @@
         <div class="section">
             <div class="section-title">5. Crop Details</div>
             <div class="grid">
-                <div><label>Crop 1</label><input type="text" id="field18"></div>
+                <div><label>Crop 1</label><input type="text" id="field18" value="Paddy" readonly></div>
                 <div><label>Land (Acre)</label><input type="number" step="0.01" id="field19" class="crop-land" value="0"></div>
             </div>
             <div class="grid">
-                <div><label>Crop 2</label><input type="text" id="field20"></div>
+                <div><label>Crop 2</label><input type="text" id="field20" value="Mustard" readonly></div>
                 <div><label>Land (Acre)</label><input type="number" step="0.01" id="field21" class="crop-land" value="0"></div>
             </div>
             <div class="grid">
-                <div><label>Crop 3</label><input type="text" id="field22"></div>
+                <div><label>Crop 3</label><input type="text" id="field22" value="Greengram" readonly></div>
                 <div><label>Land (Acre)</label><input type="number" step="0.01" id="field23" class="crop-land" value="0"></div>
             </div>
             <div class="grid">
-                <div><label>Crop 4</label><input type="text" id="field24"></div>
+                <div><label>Crop 4</label><input type="text" id="field24" value="Vegetables" readonly></div>
                 <div><label>Land (Acre)</label><input type="number" step="0.01" id="field25" class="crop-land" value="0"></div>
             </div>
             <div class="grid">
@@ -116,9 +116,7 @@
                 <div><label>No of Cows</label><input type="number" id="field30"></div>
             </div>
             <div class="grid">
-                <div><label>Fish Landing Centre</label><input type="text" id="field42"></div>
-            </div>
-        </div>
+                </div>
 
         <div class="btn-container">
             <button type="button" class="btn save-btn" onclick="saveData()">💾 Save Entry</button>
